@@ -6,7 +6,8 @@ class Signup extends Component {
         super();
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            errorMessage: ""
         }
     }
 
@@ -20,15 +21,19 @@ class Signup extends Component {
     clearInputs = () => {
         this.setState({
             username: "",
-            password: ""
+            password: "",
+            errorMessage: ""
         })
     }
-
+    
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.signup(this.state)
-            .then(() => this.props.history.push("/todos"))
-    }
+            .then(() => this.clearInputs())
+            .catch(err => {
+                this.setState({errorMessage: err.data})
+            })
+    }    
 
     render() {
         return (
@@ -49,7 +54,11 @@ class Signup extends Component {
                         placeholder="Password"/>
                     <button type="submit">Create Account</button>
                 </form>
-            </div>
+                {
+                    this.state.errorMessage &&
+                    <p style={{color: "red"}}>{this.state.errorMessage}</p>
+                }
+        </div>
         )
     }
 }

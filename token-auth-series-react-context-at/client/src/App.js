@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import Signup from "./Auth/Signup";
 import Login from "./Auth/Login";
 import TodoList from "./Todos/TodoList";
+import ProtectedRoute from "./Auth/ProtectedRoute";
 
 function App() {
     return (
@@ -13,7 +14,7 @@ function App() {
             <Switch>
                 <Route path="/signup" component={Signup}/>
                 <Route path="/login" component={Login}/>
-                <Route path="/todos" component={TodoList}/>
+                <ProtectedRoute path="/todos" component={TodoList}/>
                 <Route exact path="/" render={() => <Redirect to="/todos"/>}/>
             </Switch>
         </div>
